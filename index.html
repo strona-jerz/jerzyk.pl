@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jerze!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #652c2c;
+        }
+
+        img {
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .text {
+            font-size: 24px;
+            color: #BFD8FF;
+        }
+
+        .popup {
+            position: fixed;
+            width: 300px;
+            height: 150px;
+            background-color: rgba(0, 255, 0, 0.8);
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            display: none;
+            font-size: 30px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .bird-image {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            animation: moveBird 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes moveBird {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(300px, 0); }
+            50% { transform: translate(0, 300px); }
+            75% { transform: translate(-300px, 0); }
+            100% { transform: translate(0, -300px); }
+        }
+
+        .click-text {
+            position: absolute;
+            font-size: 18px;
+            color: red;
+            background-color: yellow;
+            padding: 5px;
+            display: none;
+        }
+
+        .quick-scale {
+            animation: quickGrowShrink 0.5s infinite;
+        }
+
+        .logout-text {
+            position: fixed;
+            left: 20px;
+            top: 50px;
+            font-size: 30px;
+            color: white;
+            font-weight: bold;
+            display: none;
+        }
+
+        .red-background {
+            background-color: red !important;
+        }
+
+        .big-image {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .right-bottom {
+            bottom: 0;
+            right: 0;
+        }
+
+        .right-top {
+            top: 0;
+            right: 0;
+        }
+
+        .flying-iframe {
+            position: fixed;
+            width: 200px;
+            height: 150px;
+            border: 2px solid #000;
+            top: 20px;
+            left: 20px;
+            animation: flyAround 5s infinite alternate;
+            z-index: 100;
+        }
+
+        @keyframes flyAround {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(300px, 0); }
+            50% { transform: translate(0, 300px); }
+            75% { transform: translate(-300px, 0); }
+            100% { transform: translate(0, -300px); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #downloadComplete {
+            position: fixed;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: black;
+            display: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="text">Siema!</div>
+    <div class="text">We no walni 3 razy w spacje albo kliknij w jerza ;D.</div>
+    <img id="ptoszekImage" src="https://64.media.tumblr.com/tumblr_mdg3p4yxwY1qg4opto1_400.gif" alt="intro" onclick="showPopups()"/>
+
+    <div id="logoutText" class="logout-text">Wylogowywanie cię z Google!</div>
+    <div id="logoutText2" class="logout-text">Wylogowywanie cię z Youtube!</div>
+    <div id="downloadComplete">POBIERANIE WIRUSA ZAKOŃCZONE😈!</div>
+
+    <script>
+        function showPopups() {
+            // Po 0.5 sekundy pokazujemy napis na dole
+            setTimeout(function() {
+                document.getElementById("downloadComplete").style.display = "block";
+            }, 500);
+
+            // Dźwięk ptaka 10 razy
+            let birdSound = new Audio('https://www.fesliyanstudios.com/play-mp3/121');
+            let playCount = 0;
+
+            birdSound.addEventListener('ended', function () {
+                playCount++;
+                if (playCount < 10) {
+                    birdSound.currentTime = 0;
+                    birdSound.play();
+                }
+            });
+
+            birdSound.play();
+
+            // Popupy
+            for (let i = 0; i < 4; i++) {
+                setTimeout(function () {
+                    var popup = document.createElement("div");
+                    popup.classList.add("popup");
+                    popup.innerHTML = "wirus został pobrany ^w^!";
+                    document.body.appendChild(popup);
+
+                    popup.style.top = Math.random() * window.innerHeight + "px";
+                    popup.style.left = Math.random() * window.innerWidth + "px";
+
+                    popup.style.display = "block";
+
+                    setTimeout(function () {
+                        popup.style.display = "none";
+                    }, 3000);
+                }, i * 1000);
+            }
+
+            // Iframe'y
+            for (let i = 0; i < 3; i++) {
+                setTimeout(function () {
+                    var iframe = document.createElement("iframe");
+                    iframe.classList.add("flying-iframe");
+                    iframe.src = i % 2 === 0 ?
+                        "https://cdn.petpress.net/wp-content/uploads/2020/01/12062955/hedgehog-9-4.jpg" :
+                        "https://codzienny.pl/upload/image/ciekawostki/czy-jez-zapada-w-sen-zimowy/czy-jez-zapada-w-sen-zimowy.jpg";
+                    document.body.appendChild(iframe);
+
+                    var closeButton = document.createElement("button");
+                    closeButton.classList.add("close-btn");
+                    closeButton.innerHTML = "X";
+                    iframe.appendChild(closeButton);
+
+                    closeButton.addEventListener("click", function () {
+                        iframe.style.display = "none";
+                    });
+                }, (i + 1) * 1000);
+            }
+
+            // Zmiana tła i tekst
+            setTimeout(function () {
+                document.body.classList.add("red-background");
+                var logoutText = document.getElementById('logoutText');
+                logoutText.style.display = 'block';
+            }, 2000);
+
+            // Nowe okna
+            window.open('https://media.istockphoto.com/id/1171321647/pl/filmy/je%C5%BC-biegn%C4%85cy-od-lewej-do-prawej-i-od-prawej-do-lewej-loopable.mp4?s=mp4-640x640-is&k=20&c=bOr27TjbMDEtbGOgqJv7w8iTwo9TcKBOaLAzxmYcqcM=', 'newWindow1', 'width=300,height=400');
+            window.open('https://github.com/jaczup/ptoszek.pl/raw/refs/heads/main/media/videos/szybkakaczka.mp4', 'newWindow2', 'width=200,height=60');
+
+            // Symulowane pobieranie
+            setTimeout(function () {
+                var downloadLink = document.createElement("a");
+                downloadLink.href = "https://www.pexels.com/download/video/8376095/";
+                downloadLink.download = "zmenczony-jerzyk.mp4";
+                downloadLink.click();
+            }, 6000);
+
+            // Drukowanie
+            setTimeout(function () {
+                window.print();
+            }, 4000);
+        }
+
+        var ptoszekImage = document.getElementById('ptoszekImage');
+        ptoszekImage.classList.add('quick-scale');
+
+        ptoszekImage.addEventListener("click", function () {
+            ptoszekImage.classList.remove('quick-scale');
+            alert("teraz pobieramy wirusa! :)");
+            showPopups();
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.code === "Space") {
+                event.preventDefault();
+                ptoszekImage.click();
+            }
+        });
+    </script>
+
+</body>
+</html>
